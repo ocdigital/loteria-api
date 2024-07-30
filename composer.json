@@ -1,0 +1,16 @@
+{
+    "name": "eduardo/loteria-api",
+    "description": "Api para sorteio de loteria",
+    "authors": [
+        {
+            "name": "ocdigital",
+            "email": "eduardo@ocdigital.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {}
+}
