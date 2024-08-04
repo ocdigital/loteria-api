@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.2/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
          colors="true"
          verbose="true">
-    <testsuites>
-        <testsuite name="Loteria Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
 
-    <php>
-        <env name="DB_HOST" value="localhost"/>
-        <env name="DB_NAME" value="loteria"/>
-        <env name="DB_USER" value="loteria"/>
-        <env name="DB_PASS" value="password"/>
-    </php>
+  <testsuites>
+    <testsuite name="Loteria Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <coverage processUncoveredFiles="true">
+      <include>
+          <directory suffix=".php">src</directory>
+      </include>
+      <report>
+          <html outputDirectory="coverage-report"/>
+          <text outputFile="coverage-report.txt"/>
+      </report>
+  </coverage>
+
+  <php>
+    <env name="DB_HOST" value="localhost"/>
+    <env name="DB_NAME" value="loteria"/>
+    <env name="DB_USER" value="loteria"/>
+    <env name="DB_PASS" value="password"/>
+  </php>
 </phpunit>

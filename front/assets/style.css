@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form .form-group {
+    margin-bottom: 15px;
+}
+
+form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select, form .form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+option {
+    padding: 8px;
+    margin: 10px;
+    box-sizing: border-box;
+    background-color: red;
+}
+
+form .form-group .numeros-group input{
+    width: 9%;
+    padding: 8px;
+    box-sizing: border-box;   
+} 
+
+button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.btn-winning:hover {
+    background-color: #f1c40f;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+/* Estilize os campos dos números */
+form .form-group .numeros-group input {
+    width: 9%;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center; /* Para centralizar os números */
+}
+
+/* Adicione uma margem entre os campos se necessário */
+form .form-group .numeros-group input:not(:last-child) {
+    margin-right: 5px;
+}
+
+/* .form-group {
+    display: flex;
+    justify-content: space-between;
+} */
+
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+}
+
+.form-item {
+    width: 100%;
+}
+
+

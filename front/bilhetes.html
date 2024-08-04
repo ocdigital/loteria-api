@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Bilhetes</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Sorteios</a></li>
+            <li><a href="tripulantes.html">Tripulantes</a></li>
+            <li><a href="bilhetes.html">Gerar bilhetes</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Gerar bilhetes</h1>
+        
+        <form id="cadastroBilheteForm">
+            <div class="form-group">
+                <label for="sorteio_id">Selecione o Sorteio:</label>
+                <select id="sorteio_id" name="sorteio_id" required>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tripulante_id">Selecione o tripulante:</label>
+                <select id="tripulante_id" name="tripulante_id" required>
+                </select>
+            </div>
+            <div class="form-group row">
+                <div class="form-item">
+                    <label for="quantidade_bilhete_2">Quantidade de dezenas</label>
+                    <input type="number" id="quantidade_dezena" name="quantidade_dezena" min="1" max="10">
+                </div>
+                <div class="form-item">
+                    <label for="quantidade_bilhete_1">Quantidade de bilhetes</label>
+                    <input type="number" id="quantidade_bilhete" name="quantidade_bilhete" min="1" max="50">
+                </div>               
+            </div>
+            
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <!-- Exibição dos bilhetes criados -->
+        <h2>Resultado</h2>
+        <div id="bilhetes-list">
+            <!-- HTML dos bilhetes será inserido aqui -->
+        </div>
+    </div>
+    <script src="assets/bilhete_scripts.js"></script>
+</body>
+</html>

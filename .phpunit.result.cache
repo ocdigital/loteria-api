@@ -1,1 +1,1 @@
-{"version":1,"defects":{"ConnectionTest::testConnection":7,"Tests\\Database\\ConnectionTest::testConnection":7},"times":{"ConnectionTest::testConnection":0.006,"Tests\\Database\\ConnectionTest::testConnection":0.005}}
+{"version":1,"defects":{"ConnectionTest::testConnection":7,"Tests\\Database\\ConnectionTest::testConnection":7},"times":{"ConnectionTest::testConnection":0.006,"Tests\\Database\\ConnectionTest::testConnection":0.003}}

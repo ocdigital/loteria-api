@@ -9,6 +9,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo pdo_mysql
 
+# Instalar o xdebug para o teste de cobertura de código   
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+ENV XDEBUG_MODE=coverage
+
 # Habilitar mod_rewrite do Apache
 RUN a2enmod rewrite
 

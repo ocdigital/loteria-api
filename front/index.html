@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Bilhetes</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Sorteios</a></li>
+            <li><a href="tripulantes.html">Tripulantes</a></li>
+            <li><a href="bilhetes.html">Gerar bilhetes</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Sorteios</h1>
+        <button class="btn-winning" onclick="criarSorteio()">Gerar novo sorteio</button>
+        <small>Ao gerar um sorteio, será gerado um bilhete premiado</small>
+
+        <table id="sorteios-table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas de sorteios serão inseridas aqui -->
+            </tbody>
+        </table>
+    </div>
+    <script src="assets/sorteio_scripts.js"></script>
+</body>
+</html>
