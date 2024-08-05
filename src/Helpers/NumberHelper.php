@@ -7,13 +7,22 @@ use App\Configs\Config;
 
 class NumberHelper
 {
-    public static function gerarNumerosAleatorios(bool $premiado,int $quantidade_dezena = 0): string
+    private int $minValidNumber;
+    private int $maxValidNumber;
+
+    public function __construct(int $minValidNumber, int $maxValidNumber)
+    {
+        $this->minValidNumber = $minValidNumber;
+        $this->maxValidNumber = $maxValidNumber;
+    }
+
+    public function gerarNumerosAleatorios(bool $premiado, int $quantidade_dezena = 0): string
     {
         $numeros = [];
         $maxNumbers = $premiado ? Config::MAX_NUMBERS_WINNING : $quantidade_dezena;
 
         while (count($numeros) < $maxNumbers) {
-            $numero = rand(Config::MIN_VALID_NUMBER, Config::MAX_VALID_NUMBER);
+            $numero = rand($this->minValidNumber, $this->maxValidNumber);
             if (!in_array($numero, $numeros)) {
                 $numeros[] = $numero;
             }

@@ -5,10 +5,9 @@ namespace App\Services;
 use App\Models\Tripulante;
 
 class TripulanteService{
-    private $tripulante;
 
-    public function __construct($db){
-        $this->tripulante = new Tripulante($db);
+    public function __construct(private Tripulante $tripulante)
+    {     
     }
 
     public function create($nome, $email){

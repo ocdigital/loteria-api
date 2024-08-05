@@ -2,17 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\Tripulante;
 use App\Services\TripulanteService;
 
-class TripulanteController {
-    private $tripulanteService;
+class TripulanteController {    
 
-    public function __construct($db) {
-        $this->tripulanteService = new TripulanteService($db);
+    public function __construct(private TripulanteService $tripulanteService) 
+    {        
     }
 
-    public function index() {
-        header("Content-Type: application/json; charset=UTF-8");
+    public function index(): void 
+    {
         $tripulantes = $this->tripulanteService->getAll();
         
         if ($tripulantes) {
@@ -22,18 +22,29 @@ class TripulanteController {
         }
     }
 
-    public function create() {
-        header("Content-Type: application/json; charset=UTF-8");
-        $data = json_decode(file_get_contents("php://input"));
-        
-        if ($this->tripulanteService->create($data->nome, $data->email)) {
-            echo json_encode(array("success" => true, "message" => "Tripulante criado com sucesso!"));
-        } else {
-            echo json_encode(array("success" => false, "message" => "Não foi possível criar o tripulante."));
+    public function create(): void 
+    {
+        $data = json_decode(file_get_contents("php://input")); 
+
+        try {
+            if ($this->tripulanteService->create($data->nome, $data->email)) {
+                echo json_encode([
+                    "success" => true, 
+                    "message" => "Tripulante criado com sucesso!"
+                ]);
+            } else {
+                echo json_encode([
+                    "success" => false, 
+                    "message" => "Não foi possível criar o tripulante."
+                ]);
+            }
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                "success" => false, 
+                "message" => "Erro interno: " . $e->getMessage()
+            ]);
         }
-    }
-    
-    public function setTripulanteService($tripulanteService) {
-        $this->tripulanteService = $tripulanteService;
-    }
+    }   
+
 }

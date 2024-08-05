@@ -2,36 +2,36 @@
 
 namespace App\Models;
 
-class Tripulante{
-    private $conn;
-    private $table_name = "tripulantes";
+class Tripulante{    
 
-    private $id;
-    private $nome;
-    private $email;
+    private \PDO $db;
+
+    private ?string $nome = null;
+    private ?string $email = null;
     
-    public function __construct($db){
-        $this->conn = $db;
+    public function __construct(\PDO $db){
+        $this->db = $db;
     }
 
-    public function getAll(){
-        $query = "SELECT * FROM " . $this->table_name;
-        $stmt = $this->conn->prepare($query);
+    public function getAll() :array
+    {
+        $query = "SELECT * FROM tripulantes";
+        $stmt = $this->db->prepare($query);
         $stmt->execute();
-        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);      
-        return $results;
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);              
     }
 
-    public function create(){
+    public function create() :bool
+    {
         try{
-            $query = "INSERT INTO " . $this->table_name . " SET nome=:nome, email=:email";
-            $stmt = $this->conn->prepare($query);
+            $query = "INSERT INTO tripulantes (nome, email) VALUES (:nome, :email)";
+            $stmt = $this->db->prepare($query);
     
             $this->nome=htmlspecialchars(strip_tags($this->nome));
             $this->email=htmlspecialchars(strip_tags($this->email));
     
-            $stmt->bindParam(":nome", $this->nome);
-            $stmt->bindParam(":email", $this->email);
+            $stmt->bindParam(":nome", $this->nome, \PDO::PARAM_STR);
+            $stmt->bindParam(":email", $this->email, \PDO::PARAM_STR);
 
             return $stmt->execute();
             
@@ -45,31 +45,24 @@ class Tripulante{
 
     }
 
-    //getters and setters
-    public function getId(){
-        return $this->id;
-    }
-
-    public function setId($id){
-        $this->id = $id;
-    }
-
-    public function getNome(){
-        return $this->nome;
-    }
-
-    public function setNome($nome){
+    public function setNome(string $nome): void
+    {
         $this->nome = $nome;
     }
 
-    public function getEmail(){
-        return $this->email;
+    public function getNome(): ?string
+    {
+        return $this->nome;
     }
 
-    public function setEmail($email){
+    public function setEmail(string $email): void
+    {
         $this->email = $email;
     }
 
-
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
     
 }

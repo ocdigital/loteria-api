@@ -4,13 +4,12 @@ namespace App\Models;
 
 
 class Bilhete{
-    private $id;
-    private $sorteio_id;
-    private $tripulante_id;
-    private $numeros;
-    private $db;
+    private int $sorteio_id;
+    private int $tripulante_id;
+    private string $numeros;
+    private \PDO $db;
 
-    public function __construct($db){
+    public function __construct(\PDO $db){
         $this->db = $db;
     }
 
@@ -18,55 +17,57 @@ class Bilhete{
         $query = "INSERT INTO bilhetes (sorteio_id, tripulante_id, numeros) 
         VALUES (:sorteio_id, :tripulante_id, :numeros)";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(":sorteio_id", $this->sorteio_id);
-        $stmt->bindParam(":tripulante_id", $this->tripulante_id);
-        $stmt->bindParam(":numeros", $this->numeros);
+        $stmt->bindParam(":sorteio_id", $this->sorteio_id, \PDO::PARAM_INT);
+        $stmt->bindParam(":tripulante_id", $this->tripulante_id, \PDO::PARAM_INT);
+        $stmt->bindParam(":numeros", $this->numeros, \PDO::PARAM_STR);
 
-        if($stmt->execute()){
-            return true;
+        try {
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            return false;
         }
-        return false;
     }
 
-    public function getAll(){
+    public function getAll(): array
+    {
         $query = "SELECT * FROM bilhetes";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
-        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);      
-        return $results;
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);      
+        
     }
-
-    public function setId($id){
-        $this->id = $id;
-    }
-
-    public function getId(){
-        return $this->id;
-    }
-
-    public function setIdSorteio($sorteio_id){
-        $this->sorteio_id = $sorteio_id;
-    }
-
-    public function getIdSorteio(){
+    public function getIdSorteio(): int
+    {
         return $this->sorteio_id;
     }
 
-    public function setIdTripulante($tripulante_id){
-        $this->tripulante_id = $tripulante_id;
+    public function setIdSorteio(int $sorteio_id): void
+    {
+        $this->sorteio_id = $sorteio_id;
     }
 
-    public function getIdTripulante(){
+    public function getIdTripulante(): int
+    {
         return $this->tripulante_id;
     }
 
-    public function setNumeros($numeros){
+    public function setIdTripulante(int $tripulante_id): void
+    {
+        $this->tripulante_id = $tripulante_id;
+    }
+
+    public function getNumeros(): string
+    {
+        return $this->numeros;
+    }
+
+    public function setNumeros(string $numeros): void
+    {
         $this->numeros = $numeros;
     }
 
-    public function getNumeros(){
-        return $this->numeros;
-    }
+
+
 
 
 }

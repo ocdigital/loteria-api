@@ -2,29 +2,29 @@
 
 namespace App\Models;
 
-use PDO;
-
 
 class Sorteio{
-    private $bilhete_premiado;
-    private $db;
+    private ?string $bilhete_premiado = null;
+    private \PDO $db;
 
-    public function __construct($db){
+    public function __construct(\PDO $db){
         $this->db = $db;
     }
 
     public function create(){
         $query = "INSERT INTO sorteios (bilhete_premiado) VALUES (:bilhete_premiado)";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(":bilhete_premiado", $this->bilhete_premiado);
+        $stmt->bindParam(":bilhete_premiado", $this->bilhete_premiado, \PDO::PARAM_STR);
 
-        if($stmt->execute()){
-            return true;
+        try {
+            return $stmt->execute();
+        } catch (\PDOException $e) {           
+            return false;
         }
-        return false;
     }
 
-    public function getAll(){
+    public function getAll(): array
+    {
         $query = "SELECT * FROM sorteios";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -32,20 +32,22 @@ class Sorteio{
         return $results;
     }
 
-    public function getById($id){
+    public function getById(int $id): ?array
+    {
         $query = "SELECT * FROM sorteios WHERE id = :id";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":id", $id, \PDO::PARAM_INT);
         $stmt->execute();
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);      
-        return $result;
+        return $stmt->fetch(\PDO::FETCH_ASSOC) ?? null;              
     }
 
-    public function setBilhetePremiado($bilhete_premiado){
+    public function setBilhetePremiado(string $bilhete_premiado): void
+    {
         $this->bilhete_premiado = $bilhete_premiado;
     }
 
-    public function getBilhetePremiado(){
+    public function getBilhetePremiado(): ?string
+    {
         return $this->bilhete_premiado;
     }
 }

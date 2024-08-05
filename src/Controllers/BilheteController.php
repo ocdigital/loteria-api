@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Controllers;
 
@@ -7,14 +6,13 @@ use App\Services\BilheteService;
 use App\Validators\BilheteValidator;
 
 class BilheteController{
-    private $bilheteService;
 
-    public function __construct($db){
-        $this->bilheteService = new BilheteService($db);
+    public function __construct(private BilheteService $bilheteService)
+    {      
     }
 
-    public function index() {
-        header("Content-Type: application/json; charset=UTF-8");
+    public function index(): void 
+    {
         $bilhetes = $this->bilheteService->getAll();
         
         if ($bilhetes) {
@@ -24,8 +22,8 @@ class BilheteController{
         }
     }
 
-    public function create(){
-        header("Content-Type: application/json; charset=UTF-8");
+    public function create(): void
+    {       
         $data = json_decode(file_get_contents("php://input"));
         $validationResult = BilheteValidator::validate($data);
 
@@ -41,17 +39,14 @@ class BilheteController{
             (int)$data->quantidade_dezena,
             (int)$data->quantidade_bilhete,
             $data->premiado ?? false
-        );
+        );        
 
         if($htmlResult !== "Erro ao criar bilhete.") {
-            header("Content-Type: text/html; charset=UTF-8");
+            // header("Content-Type: text/html; charset=UTF-8");
             echo $htmlResult;
         } else {
             echo json_encode(array("message" => "Não foi possível criar o bilhete."));
         }
-    }
-    
-    public function setBilheteService($bilheteService){
-        $this->bilheteService = $bilheteService;
     }   
+  
 }

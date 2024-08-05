@@ -1,21 +1,19 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Services;
 
 use App\Models\Bilhete;
 use App\Models\Sorteio;
 use App\Helpers\NumberHelper;
+use Exception;
 
 class BilheteService
 {
-    private $bilhete;
-    private $sorteio;
-
-    public function __construct($db)
-    {
-        $this->bilhete = new Bilhete($db);
-        $this->sorteio = new Sorteio($db);
+    public function __construct(
+        private Bilhete $bilhete, 
+        private Sorteio $sorteio,
+        private NumberHelper $numberHelper)
+    {            
     }
 
     public function getAll(){
@@ -30,15 +28,13 @@ class BilheteService
         bool $premiado = false
     ): string
     {
-
         $sorteio = $this->sorteio->getById($sorteio_id);
-        $bilhetePremiado = explode(',', $sorteio['bilhete_premiado']);
-        $bilhetePremiado = array_map('intval', $bilhetePremiado);
+        $bilhetePremiado = array_map('intval', explode(',', $sorteio['bilhete_premiado']));
 
-        $htmlResult = "<table><th>Números</th></tr>";
+        $htmlResult = "";
 
         for ($i = 0; $i < $quantidade_bilhete; $i++) {               
-            $numeros = NumberHelper::gerarNumerosAleatorios($premiado, $quantidade_dezena);   
+            $numeros = $this->numberHelper->gerarNumerosAleatorios($premiado, $quantidade_dezena);   
             $this->bilhete->setIdSorteio($sorteio_id);  
             $this->bilhete->setIdTripulante($tripulante_id);
             $this->bilhete->setNumeros($numeros);
@@ -46,36 +42,35 @@ class BilheteService
             $htmlResult .= $this->compararNumerosBilhete($numeros, $bilhetePremiado);
 
             if (!$this->bilhete->create()) {
-                return "Erro ao criar bilhete.";
-            } 
+                throw new Exception("Erro ao criar bilhete.");
+            }
         }
-
-        $htmlResult .= "</table>";
-        return $htmlResult;        
+      
+        return $this->formataTabela($htmlResult);          
     }
 
-    /**
-     * Função privada para comparar números de bilhetes com o bilhete premiado.
-     *
-     * @param string $numeros
-     * @param array $bilhetePremiado
-     * @return string
-     */
     private function compararNumerosBilhete(string $numeros, array $bilhetePremiado): string
     {
         $numerosBilhete = explode(',', $numeros);
         $numerosBilhete = array_map('intval', $numerosBilhete);
-
+    
         $html = "<tr><td>";
         foreach ($numerosBilhete as $numero) {
+            $numero = sprintf('%02d', $numero);
+            
             if (in_array($numero, $bilhetePremiado)) {
                 $html .= "<span style='color: red; font-weight: bold;'>{$numero}</span> ";
             } else {
                 $html .= "{$numero} ";
             }
         }
-
+    
         $html .= "</td></tr>";
         return $html;
+    }
+
+    private function formataTabela(string $htmlResult): string
+    {
+        return "<table><th>Números</th></tr>{$htmlResult}</table>";
     }
 }

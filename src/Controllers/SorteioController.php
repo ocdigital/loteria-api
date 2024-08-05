@@ -2,38 +2,36 @@
 
 namespace App\Controllers;
 
-
 use App\Services\SorteioService;
 
-
-class SorteioController{
-    private $db;
-    private $sorteioService;
-
-    public function __construct($db){
-        $this->db = $db;
-        $this->sorteioService = new SorteioService($db);
+class SorteioController
+{ 
+    public function __construct(private SorteioService $sorteioService)
+    {
     }
 
-    public function index() {
-        header("Content-Type: application/json; charset=UTF-8");
+    public function index()
+    {
         $sorteios = $this->sorteioService->getAll();
-        
+
         if ($sorteios) {
             echo json_encode(array("success" => true, "sorteios" => $sorteios));
         } else {
-            echo json_encode(array("success" => false, "message" => "Erro ao buscar tripulantes."));
+            echo json_encode(array("success" => false, "message" => "Erro ao buscar sorteios."));
         }
     }
 
-    public function create(){
-        header("Content-Type: application/json; charset=UTF-8");
-        if($this->sorteioService->create()){
+    public function create()
+    {
+        if ($this->sorteioService->create()) {
             echo json_encode(array("success" => true, "message" => "Sorteio criado com sucesso!"));
         } else {
             echo json_encode(array("success" => false, "message" => "Não foi possível criar o sorteio."));
         }
     }
-    
 
+    public function setSorteioService($sorteioService)
+    {
+        $this->sorteioService = $sorteioService;
+    }
 }

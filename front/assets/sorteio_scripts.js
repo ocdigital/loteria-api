@@ -27,11 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     carregarTabelaSorteios();
 
-    document.querySelector('.btn-winning').addEventListener('click', function() {
+    document.querySelector('#btn-create').addEventListener('click', function() {
         criarSorteio(); 
     });
 
-    function criarSorteio() {        
+    function criarSorteio() {  
+        console.log("Criando sorteio...");      
         fetch('http://localhost:8080/sorteios', {
             method: 'POST',
             headers: {
