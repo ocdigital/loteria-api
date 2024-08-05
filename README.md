@@ -1,11 +1,11 @@
-<p align="center"><a href="https://www.php.net/" target="_blank"><img src="https://www.php.net//images/logos/new-php-logo.svg" width="400" alt="PHP Logo"></a></p>
+<p align="center"><a href="https://www.php.net/" target="_blank"><img src="https://www.php.net//images/logos/new-php-logo.svg" width="200" alt="PHP Logo"></a></p>
 
 # Desafio PHP - Criar uma API para Sorteios de Loteria
 
 Este projeto é uma API REST desenvolvida para o desafio de desenvolvedor PHP.
 
 ** Tecnologias utilizadas
-* PHP Vanilla, Mysql, HTML, CSS, Javascript Vanilla, Docker e PHP Unit
+* PHP 8.2 Vanilla, Mysql, HTML, CSS, Javascript Vanilla, Docker e PHP Unit
 * POO, SOLID, Clean Code
 
 ** O que ele faz
