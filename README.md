@@ -1,4 +1,4 @@
-<p align="center"><a href="https://www.php.net/" target="_blank"><img src="[https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg](https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Webysther_20160423_-_Elephpant.svg/350px-Webysther_20160423_-_Elephpant.svg.png)" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://www.php.net/" target="_blank"><img src="https://www.php.net//images/logos/new-php-logo.svg" width="400" alt="PHP Logo"></a></p>
 
 # Desafio PHP - Criar uma API para Sorteios de Loteria
 
